@@ -31,6 +31,7 @@ var PDFFindBar = (function PDFFindBarClosure() {
     this.findField = options.findField || null;
     this.highlightAll = options.highlightAllCheckbox || null;
     this.caseSensitive = options.caseSensitiveCheckbox || null;
+    this.phraseSearch = options.phraseSearchCheckbox || null;
     this.findMsg = options.findMsg || null;
     this.findStatusIcon = options.findStatusIcon || null;
     this.findPreviousButton = options.findPreviousButton || null;
@@ -80,6 +81,10 @@ var PDFFindBar = (function PDFFindBarClosure() {
     this.caseSensitive.addEventListener('click', function() {
       self.dispatchEvent('casesensitivitychange');
     });
+
+    this.phraseSearch.addEventListener('click', function() {
+      self.dispatchEvent('phrasesearchchange');
+    });
   }
 
   PDFFindBar.prototype = {
@@ -88,6 +93,7 @@ var PDFFindBar = (function PDFFindBarClosure() {
       event.initCustomEvent('find' + type, true, true, {
         query: this.findField.value,
         caseSensitive: this.caseSensitive.checked,
+        phraseSearch: this.phraseSearch.checked,
         highlightAll: this.highlightAll.checked,
         findPrevious: findPrev
       });

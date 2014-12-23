@@ -152,6 +152,7 @@ var PDFViewerApplication = {
       findField: document.getElementById('findInput'),
       highlightAllCheckbox: document.getElementById('findHighlightAll'),
       caseSensitiveCheckbox: document.getElementById('findMatchCase'),
+      phraseSearchCheckbox: document.getElementById('findPhraseSearch'),
       findMsg: document.getElementById('findMsg'),
       findStatusIcon: document.getElementById('findStatusIcon'),
       findPreviousButton: document.getElementById('findPrevious'),
@@ -1110,6 +1111,16 @@ var PDFViewerApplication = {
 
     if (hash.indexOf('=') >= 0) {
       var params = this.parseQueryString(hash);
+      if (!this.supportsIntegratedFind) {
+        if ('phrase' in params) {
+          this.findBar.phraseSearch.checked = (params['phrase'] === 'true');
+        }
+        if ('search' in params) {
+          this.findBar.open();
+          this.findBar.findField.value = params['search'];
+          this.findBar.dispatchEvent('again', false);
+        }
+      }
       // borrowing syntax from "Parameters for Opening PDF Files"
       if ('nameddest' in params) {
         PDFHistory.updateNextHashParam(params.nameddest);
