@@ -1115,10 +1115,16 @@ var PDFViewerApplication = {
         if ('phrase' in params) {
           this.findBar.phraseSearch.checked = (params['phrase'] === 'true');
         }
+         if ('hlall' in params) {
+          this.findBar.highlightAll.checked = (params['hlall'] === 'true');
+        }
         if ('search' in params) {
           this.findBar.open();
           this.findBar.findField.value = params['search'];
+		  	 this.findBar.dispatchEvent('');
           this.findBar.dispatchEvent('again', false);
+	
+		  this.findBar.findNextButton.click();
         }
       }
       // borrowing syntax from "Parameters for Opening PDF Files"
